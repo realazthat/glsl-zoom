@@ -292,6 +292,11 @@ resl({
           ratio = wheelDelta < 0 ? ratio : 1 / ratio;
 
           zoom.region.scale({zoomRegion, ratio: {x: ratio, y: ratio}, bounds: zoomBounds, boundType: bound.boundType});
+
+          updateBounds({zoomBounds, writeUI: true});
+          updateCenter({zoomRegion, writeUI: true});
+          updateRadius({zoomRegion, writeUI: true});
+          updateBoundType({bound, writeUI: true});
         }
       }
 

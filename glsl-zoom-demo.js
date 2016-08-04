@@ -186,7 +186,6 @@ resl({
   onDone: ({texture}) => {
     const drawTexture = regl({
       vert: zoom.shader.vert(),
-      // frag: zoom.shader.frag(),
       frag: zoom.shader.frag({borderClamp: true, borderColor: 'uniform'}),
       attributes: {
         a_position: zoom.verts,

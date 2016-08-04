@@ -85,6 +85,22 @@ function setupUI ({zoomRegion, zoomBounds, bound}) {
   let $controlsDiv = $('<div/>').appendTo($page);
 
   let template = `
+  <div class="modal" style="display: none">
+    <div class="modal-content">
+      <h3>
+        1. mouse to scroll
+      </h3>
+      <h3>
+        2. drag to move arround
+      </h3>
+      <h3>
+        3. arrows to move around.
+      </h3>
+      <h3>
+        4. numpad arrows to move around.
+      </h3>
+    </div>
+  </div>
   <table class="controls">
     <tr>
     </tr>
@@ -93,27 +109,29 @@ function setupUI ({zoomRegion, zoomBounds, bound}) {
       <td>
         <div>
           <label for="bounds-lower-x">bounds-lower-x</label>
-          <input type="number" id="bounds-lower-x" value="0.01" />
+          <input type="number" id="bounds-lower-x" value="0.01" step=".02" />
         </div>
         <div>
           <label for="bounds-lower-y">bounds-lower-y</label>
-          <input type="number" id="bounds-lower-y" value="0.01" />
+          <input type="number" id="bounds-lower-y" value="0.01" step=".02" />
         </div>
         <div>
           <label for="bounds-upper-x">bounds-upper-x</label>
-          <input type="number" id="bounds-upper-x" value="0.98" />
+          <input type="number" id="bounds-upper-x" value="0.98" step=".02" />
         </div>
         <div>
           <label for="bounds-upper-y">bounds-upper-y</label>
-          <input type="number" id="bounds-upper-y" value="0.98" />
+          <input type="number" id="bounds-upper-y" value="0.98" step=".02" />
         </div>
       </td>
       <td><span id="bounds-view"/></td>
     </tr>
     <tr>
       <td>Bound Type</td>
-      <td>
+      <td style="text-align: center">
+        <label for="bound-type-clamp">clamp</label>
         <input type="radio" id="bound-type-clamp" name="bound-type" value="clamp" />
+        <label for="bound-type-overlap">overlap</label>
         <input type="radio" id="bound-type-overlap" name="bound-type" value="overlap" checked="checked" />
       </td>
       <td><span id="bound-type-view" /></td>
@@ -121,16 +139,16 @@ function setupUI ({zoomRegion, zoomBounds, bound}) {
     <tr>
       <td>Center</td>
       <td>
-        <input type="number" id="center-x" value=".5" />
-        <input type="number" id="center-y" value=".5" />
+        <input type="number" id="center-x" value=".5" step=".02"/>
+        <input type="number" id="center-y" value=".5" step=".02" />
       </td>
       <td><span id="center-view" /></td>
     </tr>
     <tr>
       <td>Radius</td>
       <td>
-        <input type="number" id="radius-x" value=".7" />
-        <input type="number" id="radius-y" value=".7" />
+        <input type="number" id="radius-x" value=".7" step=".02"/>
+        <input type="number" id="radius-y" value=".7" step=".02"/>
       </td>
       <td><span id="radius-view" /></td>
     </tr>
@@ -138,6 +156,30 @@ function setupUI ({zoomRegion, zoomBounds, bound}) {
   `;
 
   $controlsDiv.html(nunjucks.renderString(template));
+
+  $('.modal')
+    .css('position', 'fixed')
+    .css('z-index', '100')
+    .css('left', '0')
+    .css('top', '0')
+    .css('width', '100%')
+    .css('height', '100%')
+    .css('overflow', 'auto')
+    .css('background-color', 'rgba(0,0,0,.1)');
+  $('.modal > .modal-content')
+    .css('background-color', '#162827')
+    .css('color', '#8E4325')
+    .css('padding', '2em')
+    .css('margin', '15% auto')
+    .css('border', '2px solid #8E4325')
+    .css('border-radius', '25px')
+    .css('width', '60%');
+
+  $('.modal')
+    .fadeIn(300)
+    .on('click', function () {
+      $(this).fadeOut(300);
+    });
 
   // initialize the `#bounds-view` once.
   updateBounds({zoomBounds, readUI: true});

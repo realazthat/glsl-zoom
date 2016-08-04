@@ -1,7 +1,7 @@
 
 const quad = require('glsl-quad');
 
-function vshader(){
+function vshader () {
   return quad.shader.vert;
 }
 
@@ -18,7 +18,7 @@ function fshader ({borderClamp = false, borderColor = 'vec4(0,0,0,1)'}) {
         gl_FragColor = ${borderColor};
       }
   `;
-  
+
   return `
     precision mediump float;
 
@@ -45,8 +45,7 @@ function fshader ({borderClamp = false, borderColor = 'vec4(0,0,0,1)'}) {
   `;
 }
 
-function scaleZoomArea({zoomArea, ratio}){
-
+function scaleZoomArea ({zoomArea, ratio}) {
   let zoomDims = [zoomArea.upper[0] - zoomArea.lower[0], zoomArea.upper[1] - zoomArea.lower[0]];
   let center = [zoomArea.lower[0] + zoomDims[0] / 2.0, zoomArea.lower[1] + zoomDims[1] / 2.0];
 
@@ -60,13 +59,13 @@ function scaleZoomArea({zoomArea, ratio}){
   zoomArea.upper[1] = center[1] + zoomDims[1] / 2.0;
 }
 
-function clampValue(x,minVal,maxVal){
+function clampValue (x, minVal, maxVal) {
   return x < minVal ? minVal
                     : (x > maxVal ? maxVal
                                   : x);
 }
 
-function clampZoomArea({zoomArea, clampArea = {lower: [0,0], upper: [1,1]} }){
+function clampZoomArea ({zoomArea, clampArea = {lower: [0, 0], upper: [1, 1]}}) {
   for (let i = 0; i < 2; ++i) {
     zoomArea.lower[i] = clampValue(zoomArea.lower[i], clampArea.lower[i], clampArea.upper[i]);
     zoomArea.upper[i] = clampValue(zoomArea.upper[i], clampArea.lower[i], clampArea.upper[i]);

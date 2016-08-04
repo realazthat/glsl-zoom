@@ -35,24 +35,22 @@ resl({
         u_clip_y: 1,
         u_zoom_uv_lower: regl.prop('lower'),
         u_zoom_uv_upper: regl.prop('upper'),
-        u_border: [0,0,0,1]
+        u_border: [0, 0, 0, 1]
       }
     });
 
-
-    let speed = 1;
+    let scaleSpeed = 1;
     let wheelDelta = 0;
-    let translateStepY = (() => 5.0/$(window).height());
-    let translateStepX = (() => 5.0/$(window).width());
+    let translateStepY = () => 5.0 / $(window).height();
+    let translateStepX = () => 5.0 / $(window).width();
     let zoomArea = {
-      lower: [0,0],
-      upper: [1,1]
+      lower: [0, 0],
+      upper: [1, 1]
     };
     let downKeys = {};
 
-
-    function computeKbdDelta({downKeys}){
-      let kbdDelta = [0,0];
+    function computeKbdDelta ({downKeys}) {
+      let kbdDelta = [0, 0];
 
       if (downKeys[37]) {
         kbdDelta[0] = -1;
@@ -71,63 +69,47 @@ resl({
       return kbdDelta;
     }
 
-    $('body').on('wheel', function( event ){
+    $('body').on('wheel', function (event) {
       wheelDelta += event.originalEvent.wheelDelta;
     });
 
-    $('body').on('keydown', function( event ){
+    $('body').on('keydown', function (event) {
       downKeys[event.keyCode] = true;
     });
 
-    $('body').on('keyup', function( event ){
+    $('body').on('keyup', function (event) {
       downKeys[event.keyCode] = false;
     });
 
-
-
-    regl.frame(function({time}){
-
+    regl.frame(function ({time}) {
       regl.clear({
         color: [0, 0, 0, 0],
         depth: 1
       });
 
-
-
-      //scale
-      {
+      // scale
+      function doScale () {
         if (wheelDelta !== 0) {
           // compute the scale percent:
           // 1. the wheel delta will be in pixels.
           // 2. we want to know how many pixels on the screen the wheel went across
           //    (hence the division).
-          // 3. multiplying that by the speed (which is in units of window-height-per-zoom), we get our ratio.
-          let ratio = 1 + Math.abs(wheelDelta)*speed / $(window).height();
+          // 3. multiplying that by the speed (which is in units of window-height-per-zoom-level), we get our ratio.
+          let ratio = 1 + ((Math.abs(wheelDelta) * scaleSpeed) / $(window).height());
 
           // if the wheel was scrolled up/downward, we want to zoom in/out
-          ratio = wheelDelta < 0 ? ratio : 1/ratio;
-
-          if (wheelDelta !== 0) {
-            console.log('ratio:',ratio);
-          }
-
-
-
+          ratio = wheelDelta < 0 ? ratio : 1 / ratio;
 
           // console.log('ratio:',ratio);
           // console.log('zoomArea0:',zoomArea.lower, zoomArea.upper);
           zoom.util.scale({zoomArea, ratio});
           // zoom.util.clamp({zoomArea});
-
-          // reset the recorded wheel movement
-          wheelDelta = 0;
         }
       }
 
       // translation
-      {
+      function doTranslate () {
         let kbdDelta = computeKbdDelta({downKeys});
-        console.log('kbdDelta:',kbdDelta);
 
         zoomArea.lower[0] += kbdDelta[0] * translateStepX();
         zoomArea.lower[1] += kbdDelta[1] * translateStepY();
@@ -136,9 +118,14 @@ resl({
         // zoom.util.clamp({zoomArea});
       }
 
+      doScale();
+      // reset the recorded wheel movement
+      wheelDelta = 0;
+
+      doTranslate();
+
       // console.log('zoomArea:',zoomArea.lower, zoomArea.upper);
       drawTexture({texture, lower: zoomArea.lower, upper: zoomArea.upper});
-
-    })
+    });
   }
 });

@@ -139,10 +139,7 @@ This function translates a `zoomRegion` in-place, by `delta`.
             * `overlap` - the `zoomRegion` will not be allowed to translate to a location where
                 it can no longer see the `bounds` region.
 
-##### `zoom.region.scale (zoomRegion, ratio,
-                          bounds = null, boundType = 'overlap',
-                          minimumRadius = {x: 1.0 / (1 << 30), y: 1.0 / (1 << 30)},
-                          maximumRadius = null)`
+##### `zoom.region.scale (zoomRegion, ratio, bounds = null, boundType = 'overlap', minimumRadius = {x: 1.0 / (1 << 30), y: 1.0 / (1 << 30)}, maximumRadius = null)`
 
 Scales the `zoomRegion` by modifying the radius. Operates in-place.
 Similar to `zoom.region.translate()`, see that method for more detailed
@@ -157,9 +154,7 @@ docs on some of the params.
                     and `maximumRadius`, if they are not `null`. This can be important for avoiding
                     `NaNs`. Defaults to a very small number (`1.0 / (1 << 30)`).
 
-##### `zoom.region.clamp ({ zoomRegion, bounds = null, boundType = 'overlap',
-                            minimumRadius = {x: 1.0 / (1 << 30), y: 1.0 / (1 << 30)},
-                            maximumRadius = null})`
+##### `zoom.region.clamp ({ zoomRegion, bounds = null, boundType = 'overlap', minimumRadius = {x: 1.0 / (1 << 30), y: 1.0 / (1 << 30)}, maximumRadius = null})`
 
 Clamps the region, by `bounds` or by radius. See `zoom.region.translate()`.
 

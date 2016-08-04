@@ -145,7 +145,7 @@ function setupUI ({zoomRegion, zoomBounds, bound}) {
   $('#bounds-lower-x').on('change', () => updateBounds({zoomBounds, readUI: true}));
   $('#bounds-lower-y').on('change', () => updateBounds({zoomBounds, readUI: true}));
   $('#bounds-upper-x').on('change', () => updateBounds({zoomBounds, readUI: true}));
-  $('#bounds-upper-x').on('change', () => updateBounds({zoomBounds, readUI: true}));
+  $('#bounds-upper-y').on('change', () => updateBounds({zoomBounds, readUI: true}));
 
   // initialize the `#bound-type-view` once.
   updateBoundType({bound, readUI: true});

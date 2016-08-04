@@ -84,9 +84,13 @@ The general idea is:
 ##### `zoom.shader.frag({borderClamp = false, borderColor = 'vec4(0,0,0,1)})`
 
 * A function that returns the webgl 1.0 fragment shader to use.
-* `borderClamp` - a boolean indicating if the shader should use a border color when
+* `borderClamp` - A boolean indicating if the shader should use a border color when
   showing things off the edge of the texture; default is false, and the result is whatever
   WebGL clamping is chosen.
+* `borderColor` - A string containing a glsl vec4 value that will be used the for the
+                  over-the-border-color if `borderClamp` is set to true. can optionally
+                  use the keyword string `uniform`, which will then make the fragment
+                  shader expect a uniform `vec4` with the name `u_border`.
 * The fragment shader uniforms:
   * A uniform shader (sampler2D) named `u_tex`.
   * A uniform `vec2` named `u_zoom_uv_lower`, having values in the range [0,1],
@@ -95,6 +99,10 @@ The general idea is:
   * A uniform `vec2` named `u_zoom_uv_upper`, having values in the range [0,1],
     and representing the "upper" corner of a rectangle in uv-space of the texture.
     Note that opengl convention is uv-origin at the lower-left.
+  * Optionally, if `borderClamp` is set as true, a uniform `vec4` named `u_border`,
+    having a color value (each component in the range `[0, 1]`). This color will be
+    used for pixels that are not within the texture (i.e instead of whatever clamp
+    the texture is set to).
 
 
 ####Advanced Docs

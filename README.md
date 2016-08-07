@@ -2,6 +2,13 @@
 glsl-zoom
 ---
 
+####Look
+
+branch  | demo
+--------|-------
+master  | [glsl-zoom-demo](https://realazthat.github.io/glsl-zoom/master/www/glsl-zoom-demo/index.html)
+develop | [glsl-zoom-demo](https://realazthat.github.io/glsl-zoom/develop/www/glsl-zoom-demo/index.html)
+
 
 ####Description
 
@@ -36,13 +43,6 @@ To run the demo, run:
 
 
 ```
-
-Results:
-
-branch  | demo
---------|-------
-master  | [glsl-zoom-demo](https://realazthat.github.io/glsl-zoom/master/www/glsl-zoom-demo/index.html)
-develop | [glsl-zoom-demo](https://realazthat.github.io/glsl-zoom/develop/www/glsl-zoom-demo/index.html)
 
 ####Docs
 

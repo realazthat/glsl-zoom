@@ -132,7 +132,6 @@ function scaleZoomRegion ({ zoomRegion, ratio,
       let maxsy = maxRadiusY / zoomRegion.radius.y;
       sy = Math.min(sy, maxsy);
     }
-    
   } else if (bounds !== null && bounds !== undefined && boundType === 'overlap') {
     if (!contained2d(zoomRegion.center, bounds.lower, bounds.upper)) {
       let p2d = closestPoint2d(zoomRegion.center, bounds.lower, bounds.upper);
@@ -211,7 +210,6 @@ function clampZoomRegion ({ zoomRegion, bounds = null, boundType = 'overlap',
                             minimumRadius = {x: 1.0 / (1 << 30), y: 1.0 / (1 << 30)},
                             maximumRadius = null,
                             radiusType = 'manhattan'}) {
-
   if (!zoomRegionValidity({zoomRegion})) {
     throw new Error('Whoops, zoomRegion became invalid!');
   }

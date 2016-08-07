@@ -364,8 +364,8 @@ resl({
         delta.y += -(-mouse.delta.y / $(window).height());
 
         // a delta of 1 should move 2x the radius.
-        delta.x *= zoomRegion.radius.x*2;
-        delta.y *= zoomRegion.radius.y*2;
+        delta.x *= zoomRegion.radius.x * 2;
+        delta.y *= zoomRegion.radius.y * 2;
 
         // console.log('zoomRegion.center:', zoomRegion.center);
         zoom.region.translate({zoomRegion, delta, bounds: zoomBounds, boundType: bound.boundType});
@@ -391,7 +391,7 @@ resl({
         upper: zoom.region.uv.upper({zoomRegion})
       };
 
-      drawTexture({texture, lower: zoomArea.lower, upper: zoomArea.upper});
+      drawTexture({texture: current.texture, lower: zoomArea.lower, upper: zoomArea.upper});
     });
   }
 });

@@ -363,8 +363,9 @@ resl({
         // have to invert it back, because opengl is using the lower-left corner as origin.
         delta.y += -(-mouse.delta.y / $(window).height());
 
-        // TODO: alter delta by the radius size; when the radius is small, the delta should
-        // be smaller, so that the thing doesn't speed by.
+        // a delta of 1 should move 2x the radius.
+        delta.x *= zoomRegion.radius.x*2;
+        delta.y *= zoomRegion.radius.y*2;
 
         // console.log('zoomRegion.center:', zoomRegion.center);
         zoom.region.translate({zoomRegion, delta, bounds: zoomBounds, boundType: bound.boundType});

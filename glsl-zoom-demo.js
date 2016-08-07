@@ -262,6 +262,9 @@ resl({
       lower: {x: 0, y: 0},
       upper: {x: 1, y: 1}
     };
+    let current = {
+      texture: texture
+    };
 
     // keep this in a dictionary, because setupUI will be altering it.
     let bound = {
@@ -275,7 +278,7 @@ resl({
     };
 
     $('body').on('wheel', function (event) {
-      wheelDelta += event.originalEvent.wheelDelta;
+      wheelDelta += event.originalEvent.deltaY;
     });
 
     $('body').on('keydown', function (event) {
@@ -331,7 +334,7 @@ resl({
           let ratio = 1 + ((Math.abs(wheelDelta) * scaleSpeed) / $(window).height());
 
           // if the wheel was scrolled up/downward, we want to zoom in/out
-          ratio = wheelDelta < 0 ? ratio : 1 / ratio;
+          ratio = wheelDelta > 0 ? ratio : 1 / ratio;
 
           zoom.region.scale({zoomRegion, ratio: {x: ratio, y: ratio}, bounds: zoomBounds, boundType: bound.boundType});
 
